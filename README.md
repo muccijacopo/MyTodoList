@@ -1,4 +1,5 @@
-# todo-list
+# ToDoList
+### Sample todo list webapp made with Vue.js.
 
 ## Project setup
 ```

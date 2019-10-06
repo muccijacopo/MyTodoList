@@ -1,8 +1,8 @@
 <template>
-    <div @click="$emit('completed', todo)" class="todo">
-        <p>{{ todo.title }}
-            <button @click="$emit('delete', todo.id)">X</button>
-        </p>
+    <div class="todo">
+        <span class="text">{{ todo.title }}</span>
+        <button @click="$emit('delete', todo.id)"><i class="fas fa-trash-alt"></i></button>
+        <button v-if="!todo.completed" @click="$emit('completed', todo.id)"><i class="fas fa-check"></i></button>
     </div>
 </template>
 
@@ -14,20 +14,24 @@ export default {
 
 <style scoped>
     .todo {
-        background-color: #fff241;
+        background-color: #f3f3f3;
         font-size: 1.2em;
         text-align: left;
-        padding: 0.5em 1em;
+        padding: 10px 20px;
         margin: 1em 0;
     }
 
     .todo:hover {
-        background-color: #ffef09;
+        border: 1px solid #f8f8f8;
+        background-color: #feffda;
+    }
+    
+
+    .todo button {
+        background: none;
+        border: none;
+        float: right;
+        margin-left: 10px;
     }
 
-    button {
-        display: inline-block;
-        border: none;
-        border-radius: 50px;
-    }
 </style>

@@ -3,9 +3,9 @@
     <navbar></navbar>
     <div class="container">
       <div class="card my-5 mx-auto col-xs-12 col-md-8">
-        <h3>What you have to-do?</h3>
+        <h3>What do you have to-do today?</h3>
         <todo-input @add="addTodo"></todo-input>
-        <todos :todos="todos" :completed="todosCompleted" v-on:completed="completeTodo()" v-on:delete="deleteTodo"></todos>
+        <todos :todos="todos" v-on:completed="checkCompleted" v-on:delete="deleteTodo"></todos>
       </div>
     </div>
   </div>
@@ -20,8 +20,9 @@ export default {
   name: 'app',
   data() {
     return {
-      todos: [],
-      todosCompleted: []
+      todos: [
+        { id: 1, title: 'Ricordati di prendere il latte', completed: false, createdAt: new Date() }
+      ]
     }
   },
   methods: {
@@ -31,10 +32,10 @@ export default {
     deleteTodo(id) {
       this.todos = this.todos.filter(todo => id != todo.id);
     },
-    completeTodo(todo) {
-      var index = this.todos.indexOf(todo);
-      var todoCompleted = this.todos.splice(index);
-      this.todosCompleted.push(todoCompleted[0]);
+    checkCompleted(id) {
+     var indexFound = this.todos.findIndex(todo => todo.id == id);
+     this.todos[indexFound].completed = true;
+
     }
   },
   components: {

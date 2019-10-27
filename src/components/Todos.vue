@@ -1,16 +1,13 @@
 <template>
 <div>
     <h3>To do</h3>
-    
     <div v-if="todosUncompleted.length > 0">
         <transition-group name="fade-slide" mode="out-in">
-        <todo
-            v-for="todo in todosUncompleted" 
-            :key="todo.id" 
-            :todo="todo"
-            v-on:completed="$emit('completed', $event)"
-            v-on:delete="$emit('delete', $event)">
-        </todo>
+            <todo
+                v-for="todo in todosUncompleted" 
+                :key="todo.id" 
+                :todo="todo">
+            </todo>
         </transition-group>
     </div>
     <div v-else>
@@ -23,9 +20,7 @@
         <todo
             v-for="todo in (todosCompleted) " 
             :key="todo.id" 
-            :todo="todo"
-            v-on:completed="$emit('completed', $event)"
-            v-on:delete="$emit('delete', $event)">
+            :todo="todo">
         </todo>
         </transition-group>
     </div>
@@ -61,7 +56,7 @@ export default {
 
 <style scoped>
     h3 {
-        font-size: 2em;
+        font-size: 2rem;
     }
 
 </style>

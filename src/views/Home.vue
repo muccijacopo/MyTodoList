@@ -16,12 +16,9 @@ import Input from '../components/Input'
 import Todos from '../components/Todos'
 
 export default {
-  name: 'app',
-  data() {
-    return {
-      todos: [
-        { id: 1, title: 'Ricordati di prendere il latte', completed: false, createdAt: new Date() }
-      ]
+  computed: {
+    todos() {
+      return this.$store.state.todos;
     }
   },
   methods: {

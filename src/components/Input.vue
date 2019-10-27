@@ -1,8 +1,5 @@
 <template>
     <div class="input-group my-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="far fa-plus-square"></i></span>
-        </div>
         <input type="text" class="form-control" placeholder="Call mother" v-model="title" v-on:keydown.enter="addTodo()" >
     </div>
 </template>
@@ -18,14 +15,18 @@ export default {
     },
     methods: {
         addTodo() {
-            const newTodo = {
-                id: uuid.v4(),
-                title: this.title,
-                completed: false,
-                createdAt: new Date(),
+            if (this.title != null && this.title != '') {
+                const newTodo = {
+                    id: uuid.v4(),
+                    title: this.title,
+                    completed: false,
+                    createdAt: new Date(),
+                    editMode: false
+                }
+                this.$store.commit('addTodo', newTodo)
+                this.title = '';
             }
-            this.$emit('add', newTodo);
-            this.title = '';
+            
         }
     }
 }

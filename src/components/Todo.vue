@@ -5,12 +5,12 @@
                 <p @click="todo.editMode = !todo.editMode">{{ todo.title }}</p>
             </div>
             <div class="buttons">
-                <button v-if="!todo.completed" @click="checkTodo(todo.id)"><i class="fas fa-check"></i></button>
+                <button v-if="!todo.completed" @click="toggleTodo(todo.id)"><i class="fas fa-check"></i></button>
                 <button @click="deleteTodo(todo.id)"><i class="fas fa-trash-alt"></i></button>
             </div>
         </div>
         <div v-else>
-            <input type="text" class="form-control" :placeholder="todo.title" v-model="todo.title" v-on:keydown.enter="todo.editMode = !todo.editMode">
+            <input type="text" class="form-control" v-model="todo.title" v-on:keydown.enter="confirmEdit">
         </div>
     </div>
 </template>
@@ -19,11 +19,17 @@
 export default {
     props: ['todo'],
     methods: {
-        checkTodo(id) {
-            this.$store.commit('checkTodo', id);
+        toggleTodo(id) {
+            this.$store.commit('toggleTodo', id);
         },
         deleteTodo(id) {
             this.$store.commit('deleteTodo', id);
+        },
+        confirmEdit() {
+            this.$store.commit('updateTodo', {
+                id: this.todo.id,
+                value: this.todo.title
+            });
         }
     }
 }

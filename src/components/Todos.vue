@@ -1,31 +1,41 @@
 <template>
-<div>
-    <h3>To do</h3>
-    <div v-if="todosUncompleted.length > 0">
-        <transition-group name="fade-slide" mode="out-in">
-            <todo
-                v-for="todo in todosUncompleted" 
-                :key="todo.id" 
-                :todo="todo">
-            </todo>
-        </transition-group>
+    <div>
+        <div class="card my-3">
+            <div class="card-body">
+                <h3 class="card-title">To do</h3>
+                <div v-if="todosUncompleted.length > 0">
+                    <transition-group name="fade-slide" mode="out-in">
+                        <todo
+                            v-for="todo in todosUncompleted" 
+                            :key="todo.id" 
+                            :todo="todo">
+                        </todo>
+                    </transition-group>
+                </div>
+                <div v-else>
+                    <p class="card-text">You have done everything for today. Enjoy.</p>
+                </div>
+            </div>
+        </div>
+        <div class="card my-3">
+            <div class="card-body">
+                <h3 class="card-title">Done</h3>
+                <div v-if="todosCompleted.length > 0">
+                    
+                    <transition-group name="fade-slide" mode="out-in">
+                    <todo
+                        v-for="todo in todosCompleted" 
+                        :key="todo.id" 
+                        :todo="todo">
+                    </todo>
+                    </transition-group>
+                </div>
+                <div v-else>
+                    <p class="card-text">You haven't done anything yey.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div v-else>
-        <h5>You have done everything for today. Enjoy.</h5>
-    </div>
-    <hr>
-    <div v-if="todosCompleted.length > 0">
-        <h3>Done</h3>
-        <transition-group name="fade-slide" mode="out-in">
-        <todo
-            v-for="todo in (todosCompleted) " 
-            :key="todo.id" 
-            :todo="todo">
-        </todo>
-        </transition-group>
-    </div>
-
-</div>
 </template>
 
 <script>
@@ -58,5 +68,4 @@ export default {
     h3 {
         font-size: 2rem;
     }
-
 </style>

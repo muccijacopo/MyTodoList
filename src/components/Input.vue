@@ -1,7 +1,10 @@
 <template>
-    <div class="input-group my-3">
-        <input type="text" class="form-control" placeholder="Call mother" v-model="title" v-on:keydown.enter="addTodo()" >
-    </div>
+    <div>
+            <h3>What do you have to-do today?</h3>
+            <div class="input-group my-3">
+                <input type="text" class="form-control" placeholder="Call mother" v-model="title" v-on:keydown.enter="addTodo()" >
+            </div>
+    </div>    
 </template>
 
 <script>
@@ -33,4 +36,13 @@ export default {
 </script>
 
 <style scoped>
+
+    .input-group {
+        margin: 0 auto;
+    }
+    @media screen and (min-width: 786px){
+        .input-group {
+            width: 60%;
+        }
+    }
 </style>

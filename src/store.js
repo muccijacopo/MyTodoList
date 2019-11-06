@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     todos: [
       { id: 1, title: 'Buy milk', completed: false, createdAt: new Date(), editMode: false }
-    ]
+    ],
+    categories: ['Inbox', 'Personal', 'House', 'Work']
   },
   mutations: {
     addTodo(state, todo) {

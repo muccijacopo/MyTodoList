@@ -3,6 +3,7 @@
             <h3>What do you have to-do today?</h3>
             <div class="input-group my-3">
                 <input type="text" class="form-control" placeholder="Call mother" v-model="title" v-on:keydown.enter="addTodo()" >
+                <button class="btn btn-info" @click="addTodo()">Add todo</button>
             </div>
     </div>    
 </template>
@@ -36,13 +37,16 @@ export default {
 </script>
 
 <style scoped>
+.input-group {
+    margin: 0 auto;
+}
+.input-group .btn {
+    margin-left: 1rem;
+    background: rgb(0, 106, 192);
+}
 
-    .input-group {
-        margin: 0 auto;
-    }
-    @media screen and (min-width: 786px){
-        .input-group {
-            width: 60%;
-        }
-    }
+.input-group .btn:hover {
+    background: rgb(30, 128, 255);
+}
+
 </style>

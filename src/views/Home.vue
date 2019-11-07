@@ -19,7 +19,13 @@ import Todos from "../components/Todos";
 export default {
   computed: {
     todos() {
-      return this.$store.state.todos;
+		var allTodos = this.$store.state.todos;
+		if(!this.$route.params.label) {
+			var todos = allTodos.filter(todo => todo.label == 'Inbox')
+			return todos;
+		}
+		var todos = allTodos.filter(todo => todo.label === this.$route.params.label)
+		return todos;
     }
   },
   components: {

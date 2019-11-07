@@ -5,18 +5,13 @@ import About from './views/About.vue'
 
 Vue.use(Router)
 
+const routes = [
+  { path: '/', component: Home },
+  { path: '/label/:label', component: Home }
+]
+
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      component: About
-    }
-  ]
+  routes
 })

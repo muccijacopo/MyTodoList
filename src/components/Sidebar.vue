@@ -1,18 +1,22 @@
 <template>
     <div class="sidebar">
-        <h3>Categories</h3>
+        <h3>Labels</h3>
         <ul>
-            <li v-for="(category, index) in categories" :key="index"><router-link :to="'/'+ category">{{ category }}</router-link></li>
+            <li v-for="(label, index) in labels" :key="index">
+                <router-link :to="'/label/'+ label">
+                    <i class="fas fa-tags fa-xs"></i>{{ label }}
+                </router-link>
+            </li>
         </ul>
-        <p>You can write "#" in your 'todo' to assaign or create a category.</p>
+        <p>Try to write "#" to assaign a label to a todo.</p>
     </div>
 </template>
 
 <script>
 export default {
     computed: {
-        categories() {
-            return this.$store.state.categories;
+        labels() {
+            return this.$store.state.labels;
         }
     }
 }
@@ -28,17 +32,22 @@ export default {
         width: 100px;
     }
 
-    .sidebar p {
-        padding: 2rem;
-    }
     .sidebar h3 {
         text-align: center;
-        font-size: 2rem;
+    }
+
+    .sidebar p {
+        padding: 2rem;
     }
 
     .sidebar ul {
         margin: 0;
         padding: 0;
+        text-align: left;
+    }
+
+    .sidebar .fas {
+        margin-right: 1rem;
     }
 
     .sidebar li {
@@ -47,6 +56,7 @@ export default {
     }
 
     .sidebar li:hover {
+        cursor: pointer;
         background: rgb(51, 51, 51);
     }
 

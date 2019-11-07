@@ -18,11 +18,16 @@ export default {
         }
     },
     methods: {
+        checkInput(value) {
+            if(value !== null && value !== '') return true;
+            return false;
+        },
         addTodo() {
-            if (this.title != null && this.title != '') {
+            if (this.checkInput(this.title)) {
                 const newTodo = {
                     id: uuid.v4(),
                     title: this.title,
+                    label: 'Inbox',
                     completed: false,
                     createdAt: new Date(),
                     editMode: false

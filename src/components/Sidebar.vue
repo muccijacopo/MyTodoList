@@ -2,11 +2,9 @@
     <div class="sidebar">
         <h3>Labels</h3>
         <ul>
-            <li v-for="(label, index) in labels" :key="index">
-                <router-link :to="'/label/'+ label">
-                    <i class="fas fa-tags fa-xs"></i>{{ label }}
-                </router-link>
-            </li>
+            <router-link tag="li" v-for="(label, index) in labels" :key="index" active-class="active" :to="'/label/'+ label">
+                <i class="fas fa-tags fa-xs"></i>{{ label }}
+            </router-link>
         </ul>
         <p>Try to write "#" to assaign a label to a todo.</p>
     </div>
@@ -53,9 +51,10 @@ export default {
     .sidebar li {
         list-style: none;
         padding: 1rem;
+        font-size: 1.2rem;
     }
 
-    .sidebar li:hover {
+    .sidebar li:hover, .active {
         cursor: pointer;
         background: rgb(51, 51, 51);
     }

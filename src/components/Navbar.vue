@@ -1,8 +1,8 @@
 <template>
   <div>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark">
       <router-link class="navbar-brand" to="/">
-        Todo-list
+        MyTodoList
       </router-link>
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -19,4 +19,12 @@ export default {
 </script>
 
 <style scoped>
+  .navbar-brand {
+    font-size: 2rem;
+    margin-left: 1rem;
+  }
+
+  nav {
+    background: #1f1f1f;
+  }
 </style>

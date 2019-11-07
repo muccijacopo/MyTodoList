@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <div id="input">
             <h3>What do you have to-do today?</h3>
-            <div class="input-group my-3">
-                <input type="text" class="form-control" placeholder="Call mother" v-model="title" v-on:keydown.enter="addTodo()" >
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Call mother..." v-model="title" v-on:keydown.enter="addTodo()" >
                 <button class="btn btn-info" @click="addTodo()">Add todo</button>
             </div>
+            <hr>
     </div>    
 </template>
 
@@ -24,10 +25,13 @@ export default {
         },
         addTodo() {
             if (this.checkInput(this.title)) {
+                const regex = /#.*[aA-zZ]/;
+                var found = this.title.match(regex);
+
                 const newTodo = {
                     id: uuid.v4(),
                     title: this.title,
-                    label: 'Inbox',
+                    label: (this.$route.params.label || 'Inbox'),
                     completed: false,
                     createdAt: new Date(),
                     editMode: false
@@ -42,16 +46,27 @@ export default {
 </script>
 
 <style scoped>
+
+#input {
+    margin: 2rem;
+}
+
+#input hr {
+    border: 1px solid #242424;
+    margin: 2rem 0;
+}
 .input-group {
-    margin: 0 auto;
+    margin: 1rem auto;
 }
 .input-group .btn {
     margin-left: 1rem;
-    background: rgb(0, 106, 192);
+    background: #202020;
+    color: white;
+    border: none;
 }
 
 .input-group .btn:hover {
-    background: rgb(30, 128, 255);
+    background: #4b4b4b
 }
 
 </style>

@@ -1,5 +1,5 @@
-# ToDoList
-### Sample todo list webapp made with Vue.js.
+# MyTodoList
+MyTodoList is a todo-list SPA (Single-page application) made with Vue.js
 
 ## Project setup
 ```

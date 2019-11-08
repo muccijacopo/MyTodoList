@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar";
 import Sidebar from '../components/Sidebar'
 import Input from "../components/Input";
 import Todos from "../components/Todos";
@@ -21,16 +20,13 @@ export default {
   computed: {
     todos() {
 		var allTodos = this.$store.state.todos;
-		if(!this.$route.params.label) {
-			var todos = allTodos.filter(todo => todo.label == 'Inbox')
-			return todos;
+		if(this.$route.params.label) {
+			return allTodos.filter(todo => todo.label === this.$route.params.label);
 		}
-		var todos = allTodos.filter(todo => todo.label === this.$route.params.label)
-		return todos;
+		return allTodos.filter(todo => todo.label == 'Inbox');	
     }
   },
   components: {
-    Navbar,
     TodoInput: Input,
 	Todos,
 	Sidebar

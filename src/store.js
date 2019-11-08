@@ -6,9 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     todos: [
-      { id: 1, title: 'Buy milk', label: 'Inbox', completed: false, createdAt: new Date(), editMode: false }
+      { id: 1, title: 'Buy milk', label: 'Inbox', completed: false, createdAt: new Date(), date: null, editMode: false }
     ],
-    labels: ['Inbox']
+    labels: ['Inbox', 'Personal']
   },
   mutations: {
     addTodo(state, todo) {
@@ -18,19 +18,18 @@ export default new Vuex.Store({
       state.todos = state.todos.filter(todo => todo.id != todoId);
     },
     toggleTodo(state, todoId) {
-     var indexFound = state.todos.findIndex(todo => todo.id == todoId);
-     state.todos[indexFound].completed = true;
+     var index = state.todos.findIndex(todo => todo.id == todoId);
+     state.todos[index].completed = !state.todos[index].completed;
     },
     updateTodo(state, payload) {
-      var indexFound = state.todos.findIndex(todo => todo.id == payload.id);
-      state.todos[indexFound].title = payload.value;
-      state.todos[indexFound].editMode = false;
+      var index = state.todos.findIndex(todo => todo.id == payload.id);
+      state.todos[index].title = payload.value;
+      state.todos[index].editMode = false;
     },
     addLabel(state, label) {
-      state.labels.forEach(element => {
-        if(element == label) return false;
-      });
-      state.labels.push(label);
+      if (state.labels.every(labelItem => { return labelItem !== label })) {
+        state.labels.push(label);
+      } 
     },
     deleteLabel(state, label) {
       var index = state.labels.findIndex(labelItem => labelItem == label);

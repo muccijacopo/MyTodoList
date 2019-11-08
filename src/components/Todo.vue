@@ -1,15 +1,14 @@
 <template>
-    <div class="todo">
-        <div v-if="!todo.editMode">
-            <div class="text">
-                <p @click="todo.editMode = !todo.editMode">{{ todo.title }}</p>
-            </div>
-            <div class="buttons">
-                <button v-if="!todo.completed" @click="toggleTodo(todo.id)"><i class="fas fa-check"></i></button>
-                <button @click="deleteTodo(todo.id)"><i class="fas fa-trash-alt"></i></button>
-            </div>
+    <div>
+        <div class="todo" v-if="!todo.editMode">
+            <input @change="toggleTodo(todo.id)" type="checkbox" :checked="todo.completed">
+            <label @click="todo.editMode = !todo.editMode">
+                {{ todo.title }}
+                <i class="fas fa-trash-alt del-btn" v-on:click="deleteTodo(todo.id)"></i>
+            </label>
+            <span class="date">{{ todo.date }}</span>
         </div>
-        <div v-else>
+        <div v-else class="todo">
             <input type="text" class="form-control" v-model="todo.title" v-on:keydown.enter="confirmEdit">
         </div>
     </div>
@@ -37,31 +36,41 @@ export default {
 
 <style scoped>
     .todo {
+        width: 100%;
         background-color: #f3f3f3;
-        font-size: 1.2em;
-        text-align: left;
-        padding: 1rem 1rem;
+        padding: 1rem .5rem;
         margin: 1rem 0;
+        display: inline-block;
+        vertical-align: middle;
         position: relative;
+        border-radius: 5px;
     }
-
     .todo:hover {
         border: 1px solid #f8f8f8;
         background-color: #feffda;
     }
-
-    .todo .text {
-        display: inline-block;
-        width: 80%;
+    .todo label {
+        font-size: 1.2rem;
+        margin: 0;
     }
-
-    .buttons {
-      float: right;
-    }    
-
-    .buttons button {
-        background: none;
-        border: none;    
+    .todo input[type="checkbox"] {
+        width: 20px !important;
+        margin-right: 1rem;
     }
-
+    .todo .del-btn {
+        position: absolute;
+        right: .5rem;
+    }
+    .todo .del-btn:hover {
+        
+        cursor: pointer;
+    }
+    .todo .date {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-left: 1rem;
+    }
+    .todo .date:hover {
+        cursor: pointer;
+    }
 </style>

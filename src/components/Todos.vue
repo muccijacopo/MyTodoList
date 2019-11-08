@@ -4,13 +4,11 @@
             <div class="card-body">
                 <h3 class="card-title">To do</h3>
                 <div v-if="todosUncompleted.length > 0">
-                    <!-- <transition-group name="fade-slide" mode="out-in"> -->
-                        <todo
-                            v-for="todo in todosUncompleted" 
-                            :key="todo.id" 
-                            :todo="todo">
-                        </todo>
-                    <!-- </transition-group> -->
+                    <todo
+                        v-for="todo in todosUncompleted" 
+                        :key="todo.id" 
+                        :todo="todo">
+                    </todo>
                 </div>
                 <div v-else>
                     <p class="card-text">You have done everything for today. Enjoy.</p>
@@ -21,13 +19,11 @@
             <div class="card-body">
                 <h3 class="card-title">Done</h3>
                 <div v-if="todosCompleted.length > 0">
-                    <!-- <transition-group name="fade-slide" mode="out-in"> -->
                     <todo
                         v-for="todo in todosCompleted" 
                         :key="todo.id" 
                         :todo="todo">
                     </todo>
-                    <!-- </transition-group> -->
                 </div>
                 <div v-else>
                     <p class="card-text">You haven't done anything yet.</p>

@@ -2,11 +2,16 @@
     <div class="sidebar">
         <h3>Labels</h3>
         <ul>
+            <transition-group name="fade-slide">
             <router-link tag="li" v-for="(label, index) in labels" :key="index" active-class="active" :to="'/label/'+ label">
-                <i class="fas fa-tags fa-xs"></i>{{ label }}<i @click="deleteLabel(label)" class="fas fa-times-circle"></i>
+                <i class="fas fa-tags fa-xs"></i>{{ label }}<i v-if="label!=='Inbox'" @click="deleteLabel(label)" class="fas fa-times-circle"></i>
             </router-link>
+            </transition-group>
         </ul>
-        <p>Try to write "#" to assaign a label to a todo.</p>
+        <div class="info">
+            <p>You can write "#Label-name" to assign a label a todo.</p>
+            <p>Or you can write "@" to assign a date for reminder.</p>
+        </div>
     </div>
 </template>
 
@@ -24,6 +29,7 @@ export default {
     },
     methods: {
         deleteLabel(label) {
+            this.$router.push({path: '/label/Inbox'});
             this.$store.commit('deleteLabel', label);
         }
     }
@@ -32,10 +38,10 @@ export default {
 
 <style scoped>
     .sidebar {
-        position: fixed;
+        display: block;
         padding: 3rem 0;
         background: #222;
-        height: 100%;
+        height: 100vh;
         color: white;
         width: 100px;
     }
@@ -44,7 +50,7 @@ export default {
         text-align: center;
     }
 
-    .sidebar p {
+    .sidebar .info {
         padding: 2rem;
     }
 

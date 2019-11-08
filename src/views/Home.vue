@@ -5,6 +5,7 @@
 	</div>
 	<div class="main">
 		<todo-input></todo-input>
+		<h1 class="text-center">{{ $route.params.label || 'Inbox' }}</h1>
 		<todos :todos="todos"></todos>
 	</div>
 </div>

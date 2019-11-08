@@ -3,7 +3,7 @@
         <h3>Labels</h3>
         <ul>
             <router-link tag="li" v-for="(label, index) in labels" :key="index" active-class="active" :to="'/label/'+ label">
-                <i class="fas fa-tags fa-xs"></i>{{ label }}
+                <i class="fas fa-tags fa-xs"></i>{{ label }}<i @click="deleteLabel(label)" class="fas fa-times-circle"></i>
             </router-link>
         </ul>
         <p>Try to write "#" to assaign a label to a todo.</p>
@@ -12,9 +12,19 @@
 
 <script>
 export default {
+    data() {
+        return {
+            show: false
+        }
+    },
     computed: {
         labels() {
             return this.$store.state.labels;
+        }
+    },
+    methods: {
+        deleteLabel(label) {
+            this.$store.commit('deleteLabel', label);
         }
     }
 }
@@ -44,8 +54,12 @@ export default {
         text-align: left;
     }
 
-    .sidebar .fas {
+    .sidebar .fas.fa-tags {
         margin-right: 1rem;
+    }
+
+    .sidebar .fas.fa-times-circle {
+        float: right;
     }
 
     .sidebar li {

@@ -8,7 +8,7 @@ export default new Vuex.Store({
     todos: [
       { id: 1, title: 'Buy milk', label: 'Inbox', completed: false, createdAt: new Date(), editMode: false }
     ],
-    labels: ['Inbox', 'Personal', 'House', 'Work']
+    labels: ['Inbox']
   },
   mutations: {
     addTodo(state, todo) {
@@ -25,6 +25,16 @@ export default new Vuex.Store({
       var indexFound = state.todos.findIndex(todo => todo.id == payload.id);
       state.todos[indexFound].title = payload.value;
       state.todos[indexFound].editMode = false;
+    },
+    addLabel(state, label) {
+      state.labels.forEach(element => {
+        if(element == label) return false;
+      });
+      state.labels.push(label);
+    },
+    deleteLabel(state, label) {
+      var index = state.labels.findIndex(labelItem => labelItem == label);
+      state.labels.splice(index, 1);
     }
   }
 })

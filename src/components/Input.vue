@@ -23,15 +23,20 @@ export default {
             if(value !== null && value !== '') return true;
             return false;
         },
+        findLabels(value) {
+            const regex = /#.*[aA-zZ]/g;
+            var found = this.title.match(regex);
+            var labelName = found[0].slice(1);
+            this.$store.commit('addLabel', labelName);
+            return labelName;
+        },
         addTodo() {
             if (this.checkInput(this.title)) {
-                const regex = /#.*[aA-zZ]/;
-                var found = this.title.match(regex);
-
+                var label = this.findLabels(this.title);
                 const newTodo = {
                     id: uuid.v4(),
                     title: this.title,
-                    label: (this.$route.params.label || 'Inbox'),
+                    label: (label || this.$route.params.label || 'Inbox'),
                     completed: false,
                     createdAt: new Date(),
                     editMode: false

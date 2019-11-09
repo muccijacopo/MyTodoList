@@ -6,7 +6,6 @@
                 {{ todo.title }}
                 <i class="fas fa-trash-alt del-btn" v-on:click="deleteTodo(todo.id)"></i>
             </label>
-            <span class="date">{{ todo.date }}</span>
         </div>
         <div v-else class="todo">
             <input type="text" class="form-control" v-model="todo.title" v-on:keydown.enter="confirmEdit">
@@ -64,11 +63,6 @@ export default {
     .todo .del-btn:hover {
         
         cursor: pointer;
-    }
-    .todo .date {
-        font-weight: bold;
-        text-decoration: underline;
-        margin-left: 1rem;
     }
     .todo .date:hover {
         cursor: pointer;

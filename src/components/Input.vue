@@ -87,7 +87,6 @@ export default {
 #input {
     margin: 2rem;
 }
-
 #input hr {
     border: 1px solid #242424;
     margin: 2rem 0;
@@ -101,7 +100,6 @@ export default {
     color: white;
     border: none;
 }
-
 .input-group .btn:hover {
     background: #4b4b4b
 }

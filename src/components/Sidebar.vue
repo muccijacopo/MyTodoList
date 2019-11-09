@@ -9,7 +9,7 @@
             </transition-group>
         </ul>
         <div class="info">
-            <p>You can write "#Label-name" to assign a label a todo.</p>
+            <p>You can write "#" to assign a label a todo.</p>
             <p>Or you can write "@" to assign a date for reminder.</p>
         </div>
     </div>
@@ -41,9 +41,7 @@ export default {
         display: block;
         padding: 3rem 0;
         background: #222;
-        height: 100vh;
         color: white;
-        width: 100px;
     }
 
     .sidebar h3 {

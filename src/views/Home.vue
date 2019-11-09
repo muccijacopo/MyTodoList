@@ -42,6 +42,7 @@ export default {
 
 .wrapper .sidebar {
 	width: 300px;
+	height: 100vh;
 }
 .wrapper .main {
 	position: relative;

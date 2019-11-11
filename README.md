@@ -1,5 +1,5 @@
 # MyTodoList
-MyTodoList is a todo-list SPA (Single-page application) made with Vue.js
+MyTodoList is a todo-list SPA (Single-page application) built with Vue.js, Vuex and Vue Router.
 
 ## Project setup
 ```

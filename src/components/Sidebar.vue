@@ -10,7 +10,7 @@
         </ul>
         <div class="info">
             <p>You can write "#" to assign a label a todo.</p>
-            <p>Or you can write "@" to assign a date for reminder.</p>
+            <p>Or you can write "@" to schedule a todo</p>
         </div>
     </div>
 </template>

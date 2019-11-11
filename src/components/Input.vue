@@ -51,31 +51,35 @@ export default {
             }
         },
         addTodo() {
-            var todoText = this.todoText;
-            if (this.checkInput(todoText)) {
-                var label = this.findLabels(todoText);
-                var date = this.findReminder(todoText);
-                if(label) { 
-                    todoText = todoText.replace('#' + label, '');
-                }
-                if(date) {
-                    todoText = todoText.replace('@' + date, '');
-                }
+
+           this.$store.dispatch('checkTodoText', this.todoText);
+           this.todoText = '';
+                
+    
+            // if (this.checkInput(todoText)) {
+            //     var label = this.findLabels(todoText);
+            //     var date = this.findReminder(todoText);
+            //     if(label) { 
+            //         todoText = todoText.replace('#' + label, '');
+            //     }
+            //     if(date) {
+            //         todoText = todoText.replace('@' + date, '');
+            //     }
                     
-                const newTodo = {
-                    id: uuid.v4(),
-                    title: todoText,
-                    label: (label || this.$route.params.label || 'Inbox'),
-                    date: date,
-                    completed: false,
-                    createdAt: new Date(),
-                    editMode: false
-                }
-                this.$store.commit('addTodo', newTodo)
-                this.todoText = '';
-                this.message = "You\'ve had a todo to " + (label ? label: 'Inbox');
-                setTimeout(() => this.message = '', 3000);
-            }
+            //     const newTodo = {
+            //         id: uuid.v4(),
+            //         text: todoText,
+            //         label: (label || this.$route.params.label || 'Inbox'),
+            //         date: date,
+            //         completed: false,
+            //         createdAt: new Date(),
+            //         editMode: false
+            //     }
+            //     this.$store.commit('addTodo', newTodo)
+            //     this.todoText = '';
+            //     this.message = "You\'ve had a todo to " + (label ? label: 'Inbox');
+            //     setTimeout(() => this.message = '', 3000);
+            // }
             
         }
     }

@@ -1,14 +1,18 @@
 <template>
     <div>
-        <div class="todo" v-if="!todo.editMode">
+        <div class="todo" v-if="!todo.editMode" @mouseover="showActionBtn = true" @mouseleave="showActionBtn = false">
             <input @change="toggleTodo(todo.id)" type="checkbox" :checked="todo.completed">
             <label @click="todo.editMode = !todo.editMode">
-                {{ todo.title }}
-                <i class="fas fa-trash-alt del-btn" v-on:click="deleteTodo(todo.id)"></i>
+                {{ todo.text }}
             </label>
+            <div v-if="showActionBtn" class="action-btn">
+                <i class="fas fa-tag" title="Labels" @click="setLabel(todo.id)"></i>
+                <i class="fas fa-calendar-alt" title="Schedule todo" @click="scheduleTodo(todo.id)"></i>
+                <i class="fas fa-trash-alt del-btn" title="Delete todo" @click="deleteTodo(todo.id)"></i>
+            </div>
         </div>
         <div v-else class="todo">
-            <input type="text" class="form-control" v-model="todo.title" v-on:keydown.enter="confirmEdit">
+            <input type="text" class="form-control" v-model="todo.text" v-on:keydown.enter="confirmEdit">
         </div>
     </div>
 </template>
@@ -16,17 +20,28 @@
 <script>
 export default {
     props: ['todo'],
+    data() {
+        return {
+            showActionBtn: false
+        }
+    },
     methods: {
-        toggleTodo(id) {
-            this.$store.commit('toggleTodo', id);
+        toggleTodo(todoId) {
+            this.$store.commit('toggleTodo', todoId);
         },
-        deleteTodo(id) {
-            this.$store.commit('deleteTodo', id);
+        setLabel(todoId) {
+            console.log(todoId);
+        },
+        scheduleTodo(todoId) {
+            console.log(todoId);
+        },
+        deleteTodo(todoId) {
+            this.$store.commit('deleteTodo', todoId);
         },
         confirmEdit() {
             this.$store.commit('updateTodo', {
                 id: this.todo.id,
-                value: this.todo.title
+                value: this.todo.text
             });
         }
     }
@@ -56,15 +71,18 @@ export default {
         width: 20px !important;
         margin-right: 1rem;
     }
-    .todo .del-btn {
+
+    .todo .action-btn {
         position: absolute;
+        top: 1rem;
         right: .5rem;
+
     }
-    .todo .del-btn:hover {
-        
-        cursor: pointer;
+    .todo .action-btn i {
+        margin: 0 .5rem;
     }
-    .todo .date:hover {
+
+    .todo .action-btn i:hover {
         cursor: pointer;
     }
 </style>

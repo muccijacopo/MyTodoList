@@ -14,6 +14,7 @@
 
 <script>
 import uuid from 'uuid'
+import { checkInput } from '../services/Todo'
 
 export default {
     data() {
@@ -23,64 +24,14 @@ export default {
         }
     },
     methods: {
-        checkInput(value) {
-            return (value !== null && value !== '');
-        },
-        findLabels(value) {
-            const regex = /#[^\s]*/;
-            var found = value.match(regex);
-            if (found) {
-                var labelName = found[0].slice(1);
-                this.$store.commit('addLabel', labelName);
-                return labelName;
-            }
-            return null;
-        },
-        findReminder(value) {
-            const regex = /@[^\s]*/;
-            var found = value.match(regex);
-            if (found) {
-                var text = found[0].slice(1);
-                if (text == 'Today') {
-                    return 'Today'
-                } else if (text == 'Tomorrow') {
-                    return 'Tomorrow';
-                } else {
-                    return null;
-                }
-            }
-        },
         addTodo() {
-
-           this.$store.dispatch('checkTodoText', this.todoText);
-           this.todoText = '';
-                
-    
-            // if (this.checkInput(todoText)) {
-            //     var label = this.findLabels(todoText);
-            //     var date = this.findReminder(todoText);
-            //     if(label) { 
-            //         todoText = todoText.replace('#' + label, '');
-            //     }
-            //     if(date) {
-            //         todoText = todoText.replace('@' + date, '');
-            //     }
-                    
-            //     const newTodo = {
-            //         id: uuid.v4(),
-            //         text: todoText,
-            //         label: (label || this.$route.params.label || 'Inbox'),
-            //         date: date,
-            //         completed: false,
-            //         createdAt: new Date(),
-            //         editMode: false
-            //     }
-            //     this.$store.commit('addTodo', newTodo)
-            //     this.todoText = '';
-            //     this.message = "You\'ve had a todo to " + (label ? label: 'Inbox');
-            //     setTimeout(() => this.message = '', 3000);
-            // }
-            
+            const todo = checkInput(this.todoText);
+            if(todo) {
+                this.$store.dispatch('addTodo', todo);
+                this.todoText = '';
+                this.message = "You\'ve just added a new todo to " + (todo.label ? todo.label: 'Inbox');
+                setTimeout(() => this.message = '', 3000);
+            }
         }
     }
 }

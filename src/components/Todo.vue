@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { checkInput } from '../services/Todo'
+
 export default {
     props: ['todo'],
     data() {
@@ -39,10 +41,12 @@ export default {
             this.$store.commit('deleteTodo', todoId);
         },
         confirmEdit() {
-            this.$store.commit('updateTodo', {
-                id: this.todo.id,
-                value: this.todo.text
-            });
+            var todo = checkInput(this.todo.text);
+            if(todo) {
+                todo.id = this.todo.id;
+                this.$store.commit('updateTodo', todo);
+                this.todo.editMode = false;
+            }
         }
     }
 }
@@ -53,7 +57,7 @@ export default {
         width: 100%;
         background-color: #f3f3f3;
         padding: 1rem .5rem;
-        margin: 1rem 0;
+        margin: .5rem 0;
         display: inline-block;
         vertical-align: middle;
         position: relative;

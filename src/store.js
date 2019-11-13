@@ -23,10 +23,15 @@ export default new Vuex.Store({
 			var index = state.todos.findIndex(todo => todo.id == todoId);
 			state.todos[index].completed = !state.todos[index].completed;
 		},
-		updateTodo(state, payload) {
-			var index = state.todos.findIndex(todo => todo.id == payload.id);
-			state.todos[index].text = payload.value;
-			state.todos[index].editMode = false;
+		updateTodo(state, todo) {
+			var index = state.todos.findIndex(todoItem => todoItem.id == todo.id);
+			state.todos[index].text = todo.text;
+			if(todo.label) { 
+				state.todos[index].label = todo.label;
+			}
+			if(todo.date) {
+				state.todos[index].date = todo.date;
+			}
 		},
 		addLabel(state, label) {
 			if (state.labels.every(labelItem => { return labelItem !== label })) {
@@ -39,52 +44,17 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-		/* 
-		* @return: property of the todo otherwise null
-		*/
-		checkTodoText(context, todoText) {
-			var todo = {};
-
-			if (todoText !== null && todoText !== '') {
-
-				const labelRegex = /#[^\s]*/;
-				var found = todoText.match(labelRegex);
-				if (found) {
-					var labelName = found[0].slice(1);
-					context.commit('addLabel', labelName);
-					todo.label = labelName;
-					todoText = todoText.replace('#' + labelName, '');
-				} else {
-					todo.label = null;
-				}
-				
-				const dateRegex = /@[^\s]*/;
-				var found = todoText.match(dateRegex);
-				if (found) {
-					var date = found[0].slice(1);
-					if (date == 'Today') {
-						todo.date = 'Today';
-					} else if (date == 'Tomorrow') {
-						todo.date = 'Tomorrow';
-					} else {
-						todo.date = null;
-					}
-					todoText = todoText.replace('@' + date, '')
-				}
-				
-				const newTodo = {
-					id: uuid.v4(),
-					text: todoText,
-					label: (todo.label || router.currentRoute.params.label || 'Inbox'),
-					date: todo.date,
-					completed: false,
-					createdAt: new Date(),
-					editMode: false
-				}
-
-				context.commit('addTodo', newTodo);
+		addTodo(context, todo) {	
+			const newTodo = {
+				id: uuid.v4(),
+				text: todo.text,
+				label: (todo.label || router.currentRoute.params.label || 'Inbox'),
+				date: todo.date,
+				completed: false,
+				createdAt: new Date(),
+				editMode: false
 			}
-
+		context.commit('addTodo', newTodo);
 		}
 	}
 })

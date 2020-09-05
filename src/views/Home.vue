@@ -1,53 +1,64 @@
 <template>
-<div class="wrapper">
-	<div class="sidebar">
-		<sidebar></sidebar>
-	</div>
-	<div class="main">
-		<todo-input></todo-input>
-		<h1 class="text-center">{{ $route.params.label || 'Inbox' }}</h1>
-		<todos :todos="todos"></todos>
-	</div>
-</div>
+  <div class="container-fluid">
+    <sidebar></sidebar>
+    <main>
+      <todo-input></todo-input>
+      <h1 class="text-center">{{ $route.params.label || 'Inbox' }}</h1>
+      <todos v-if="todos" :todos="todos"></todos>
+    </main>
+  </div>
 </template>
 
 <script>
-import Sidebar from '../components/Sidebar'
+import Sidebar from "../components/Sidebar";
 import Input from "../components/Input";
 import Todos from "../components/Todos";
 
 export default {
+  data: () => {
+    return {
+      labels: [],
+    };
+  },
+  created() {
+    this.labels = this.$store.state.labels;
+  },
   computed: {
     todos() {
-		var allTodos = this.$store.state.todos;
-		if(this.$route.params.label) {
-			return allTodos.filter(todo => todo.label === this.$route.params.label);
-		}
-		return allTodos.filter(todo => todo.label == 'Inbox');	
-    }
+      const todos = this.$store.state.todos;
+      const label = this.$route.params.label;
+      if (this.verifyLabel(label)) {
+        return todos.filter((t) => t.label === label);
+      }
+      return null;
+    },
+  },
+  methods: {
+    verifyLabel(label) {
+      if (!label || !this.labels.includes(label)) {
+        this.$router.push("/label/Inbox");
+        return false;
+      }
+      return true;
+    },
   },
   components: {
     TodoInput: Input,
-	Todos,
-	Sidebar
-  }
+    Todos,
+    Sidebar,
+  },
 };
 </script>
 
 <style>
-.wrapper {
-	display: flex;
-	position: relative;
+main {
+  padding: 1rem;
+  width: 60%;
 }
-
-.wrapper .sidebar {
-	width: 300px;
-	height: 100vh;
-}
-.wrapper .main {
-	position: relative;
-	margin: 0 auto;
-	padding: 1rem;
-	width: 60%;
+.container-fluid {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 </style>

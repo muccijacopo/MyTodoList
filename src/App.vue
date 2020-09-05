@@ -8,22 +8,23 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
 
 export default {
   components: {
-    Navbar
-  }
-}
+    Navbar,
+  },
+};
 </script>
 
 <style>
- .fade-slide-enter-active, .fade-slide-leave-active {
-  transition: all .5s;
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.5s;
 }
-.fade-slide-enter, .fade-slide-leave-to {
+.fade-slide-enter,
+.fade-slide-leave-to {
   transform: translateY(-30px);
   opacity: 0;
 }
-
 </style>

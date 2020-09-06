@@ -2,32 +2,40 @@
   <div>
     <div
       class="todo"
-      v-if="!todo.editMode"
+      v-if="!editMode"
       @mouseover="showActionBtn = true"
       @mouseleave="showActionBtn = false"
+      @click="editMode = true"
     >
-      <input @change="toggleTodo(todo.id)" type="checkbox" :checked="todo.completed" />
       <label @click="todo.editMode = !todo.editMode">{{ todo.text }}</label>
       <div v-if="showActionBtn" class="action-btn">
         <!-- <i class="fas fa-tag" title="Labels" @click="setLabel(todo.id)"></i>
         <i class="fas fa-calendar-alt" title="Schedule todo" @click="scheduleTodo(todo.id)"></i>-->
+        <i class="fas fa-check" @click="toggleTodo(todo.id)"></i>
         <i class="fas fa-trash-alt del-btn" title="Delete todo" @click="deleteTodo(todo.id)"></i>
       </div>
     </div>
     <div v-else class="todo">
-      <input type="text" class="form-control" v-model="todo.text" v-on:keydown.enter="confirmEdit" />
+      <input
+        type="text"
+        class="form-control"
+        v-model="todo.text"
+        @keydown.enter="$event.target.blur()"
+        @blur="confirmEdit"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { checkInput } from "../services/Todo";
+import { TodoService } from "../services/TodoService";
 
 export default {
   props: ["todo"],
   data() {
     return {
       showActionBtn: false,
+      editMode: false,
     };
   },
   methods: {
@@ -44,12 +52,9 @@ export default {
       this.$store.commit("deleteTodo", todoId);
     },
     confirmEdit() {
-      var todo = checkInput(this.todo.text);
-      if (todo) {
-        todo.id = this.todo.id;
-        this.$store.commit("updateTodo", todo);
-        this.todo.editMode = false;
-      }
+      TodoService.updateTodo(this.todo)
+        .catch((e) => console.log(e))
+        .finally(() => (this.editMode = false));
     },
   },
 };

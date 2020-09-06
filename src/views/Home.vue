@@ -27,7 +27,6 @@ export default {
     todos() {
       const todos = this.$store.state.todos;
       const label = this.$route.params.label;
-      console.log("qui");
       if (this.verifyLabel(label)) {
         return todos.filter((t) => t.label === label);
       }

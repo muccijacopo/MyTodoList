@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import uuid from "uuid";
-import { checkInput } from "../services/Todo";
+import { validateTodo, TodoService } from "../services/TodoService";
 
 export default {
   data() {
@@ -31,14 +30,21 @@ export default {
   },
   methods: {
     addTodo() {
-      const todo = checkInput(this.todoText);
-      if (todo) {
-        this.$store.dispatch("addTodo", todo);
-        this.todoText = "";
-        this.message =
-          "You've just added a todo to " + (todo.label ? todo.label : "Inbox");
-        setTimeout(() => (this.message = ""), 3000);
-      }
+      //   const todo = validateTodo(this.todoText);
+      //   if (todo) {
+      //     this.$store.dispatch("addTodo", todo);
+      //     this.todoText = "";
+      //     this.message =
+      //       "You've just added a todo to " + (todo.label ? todo.label : "Inbox");
+      //     setTimeout(() => (this.message = ""), 3000);
+      //   }
+      TodoService.addTodo(this.todoText)
+        .then((todo) => {
+          this.message = `You've just added a todo to ${todo.label || "Inbox"}`;
+          this.todoText = "";
+          setTimeout(() => (this.message = ""), 3000);
+        })
+        .catch((e) => console.log("Si è verificato un errore => ", e));
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <navbar></navbar>
     <transition name="fade-slide" mode="out-in">
       <router-view></router-view>
@@ -18,6 +18,10 @@ export default {
 </script>
 
 <style>
+html,
+body {
+  height: 100%;
+}
 .fade-slide-enter-active,
 .fade-slide-leave-active {
   transition: all 0.5s;

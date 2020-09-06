@@ -21,8 +21,8 @@
       </transition-group>
     </ul>
     <div class="info">
-      <p>You can write "#" to label a todo.</p>
-      <p>You can write "@" to schedule a todo</p>
+      <p>You can write "#" to label a task.</p>
+      <p>You can write "@" to schedule a task</p>
     </div>
   </aside>
 </template>
@@ -50,8 +50,8 @@ export default {
 
 <style scoped>
 aside {
+  width: 20%;
   height: 100%;
-  width: 30%;
   background: #1f1f1f;
   color: #ffffff;
   padding: 1.5rem 0;

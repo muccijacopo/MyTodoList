@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="app-container">
     <sidebar></sidebar>
     <main>
       <todo-input></todo-input>
@@ -52,11 +52,16 @@ export default {
 
 <style>
 main {
-  padding: 1rem;
-  width: 60%;
+  height: 100%;
+  width: 80%;
+  padding-top: 1.5rem;
+  padding-right: 20%;
+  margin-left: 10%;
+  overflow: scroll;
 }
-.container-fluid {
-  height: 100vh;
+.app-container {
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   display: flex;

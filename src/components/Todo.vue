@@ -9,14 +9,13 @@
     >
       <label @click="todo.editMode = !todo.editMode">{{ todo.text }}</label>
       <div v-if="showActionBtn" class="action-btn">
-        <!-- <i class="fas fa-tag" title="Labels" @click="setLabel(todo.id)"></i>
-        <i class="fas fa-calendar-alt" title="Schedule todo" @click="scheduleTodo(todo.id)"></i>-->
-        <i class="fas fa-check" @click="toggleTodo(todo.id)"></i>
-        <i class="fas fa-trash-alt del-btn" title="Delete todo" @click="deleteTodo(todo.id)"></i>
+        <i class="fas" :class="checkedClass" @click="toggleTodo(todo.id)"></i>
+        <i class="fas fa-trash-alt del-btn" @click="deleteTodo(todo.id)"></i>
       </div>
     </div>
     <div v-else class="todo">
       <input
+        autofocus
         type="text"
         class="form-control"
         v-model="todo.text"
@@ -57,6 +56,12 @@ export default {
         .finally(() => (this.editMode = false));
     },
   },
+  computed: {
+    checkedClass() {
+      const checked = this.todo.completed;
+      return checked ? "fa-history" : "fa-check";
+    },
+  },
 };
 </script>
 
@@ -71,15 +76,10 @@ export default {
   position: relative;
   border-radius: 5px;
 }
-.todo:hover {
-}
+
 .todo label {
   font-size: 1.2rem;
   margin: 0;
-}
-.todo input[type="checkbox"] {
-  width: 20px !important;
-  margin-right: 1rem;
 }
 
 .todo .action-btn {
@@ -89,9 +89,6 @@ export default {
 }
 .todo .action-btn i {
   margin: 0 0.5rem;
-}
-
-.todo .action-btn i:hover {
   cursor: pointer;
 }
 </style>

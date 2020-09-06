@@ -1,6 +1,6 @@
 <template>
   <div id="input">
-    <h3>What do you have to-do today?</h3>
+    <h3>Add Task</h3>
     <transition name="fade-slide">
       <div v-if="message" class="alert alert-success">{{ message }}</div>
     </transition>
@@ -12,7 +12,7 @@
         v-model="todoText"
         v-on:keydown.enter="addTodo()"
       />
-      <button class="btn btn-info" @click="addTodo()">Add todo</button>
+      <button class="btn btn-info" @click="addTodo()">Add</button>
     </div>
     <hr />
   </div>
@@ -30,14 +30,6 @@ export default {
   },
   methods: {
     addTodo() {
-      //   const todo = validateTodo(this.todoText);
-      //   if (todo) {
-      //     this.$store.dispatch("addTodo", todo);
-      //     this.todoText = "";
-      //     this.message =
-      //       "You've just added a todo to " + (todo.label ? todo.label : "Inbox");
-      //     setTimeout(() => (this.message = ""), 3000);
-      //   }
       TodoService.addTodo(this.todoText)
         .then((todo) => {
           this.message = `You've just added a todo to ${todo.label || "Inbox"}`;

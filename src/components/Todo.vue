@@ -1,92 +1,92 @@
 <template>
-    <div>
-        <div class="todo" v-if="!todo.editMode" @mouseover="showActionBtn = true" @mouseleave="showActionBtn = false">
-            <input @change="toggleTodo(todo.id)" type="checkbox" :checked="todo.completed">
-            <label @click="todo.editMode = !todo.editMode">
-                {{ todo.text }}
-            </label>
-            <div v-if="showActionBtn" class="action-btn">
-                <i class="fas fa-tag" title="Labels" @click="setLabel(todo.id)"></i>
-                <i class="fas fa-calendar-alt" title="Schedule todo" @click="scheduleTodo(todo.id)"></i>
-                <i class="fas fa-trash-alt del-btn" title="Delete todo" @click="deleteTodo(todo.id)"></i>
-            </div>
-        </div>
-        <div v-else class="todo">
-            <input type="text" class="form-control" v-model="todo.text" v-on:keydown.enter="confirmEdit">
-        </div>
+  <div>
+    <div
+      class="todo"
+      v-if="!todo.editMode"
+      @mouseover="showActionBtn = true"
+      @mouseleave="showActionBtn = false"
+    >
+      <input @change="toggleTodo(todo.id)" type="checkbox" :checked="todo.completed" />
+      <label @click="todo.editMode = !todo.editMode">{{ todo.text }}</label>
+      <div v-if="showActionBtn" class="action-btn">
+        <!-- <i class="fas fa-tag" title="Labels" @click="setLabel(todo.id)"></i>
+        <i class="fas fa-calendar-alt" title="Schedule todo" @click="scheduleTodo(todo.id)"></i>-->
+        <i class="fas fa-trash-alt del-btn" title="Delete todo" @click="deleteTodo(todo.id)"></i>
+      </div>
     </div>
+    <div v-else class="todo">
+      <input type="text" class="form-control" v-model="todo.text" v-on:keydown.enter="confirmEdit" />
+    </div>
+  </div>
 </template>
 
 <script>
-import { checkInput } from '../services/Todo'
+import { checkInput } from "../services/Todo";
 
 export default {
-    props: ['todo'],
-    data() {
-        return {
-            showActionBtn: false
-        }
+  props: ["todo"],
+  data() {
+    return {
+      showActionBtn: false,
+    };
+  },
+  methods: {
+    toggleTodo(todoId) {
+      this.$store.commit("toggleTodo", todoId);
     },
-    methods: {
-        toggleTodo(todoId) {
-            this.$store.commit('toggleTodo', todoId);
-        },
-        setLabel(todoId) {
-            console.log(todoId);
-        },
-        scheduleTodo(todoId) {
-            console.log(todoId);
-        },
-        deleteTodo(todoId) {
-            this.$store.commit('deleteTodo', todoId);
-        },
-        confirmEdit() {
-            var todo = checkInput(this.todo.text);
-            if(todo) {
-                todo.id = this.todo.id;
-                this.$store.commit('updateTodo', todo);
-                this.todo.editMode = false;
-            }
-        }
-    }
-}
+    setLabel(todoId) {
+      console.log(todoId);
+    },
+    scheduleTodo(todoId) {
+      console.log(todoId);
+    },
+    deleteTodo(todoId) {
+      this.$store.commit("deleteTodo", todoId);
+    },
+    confirmEdit() {
+      var todo = checkInput(this.todo.text);
+      if (todo) {
+        todo.id = this.todo.id;
+        this.$store.commit("updateTodo", todo);
+        this.todo.editMode = false;
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
-    .todo {
-        width: 100%;
-        background-color: #f3f3f3;
-        padding: 1rem .5rem;
-        margin: .5rem 0;
-        display: inline-block;
-        vertical-align: middle;
-        position: relative;
-        border-radius: 5px;
-    }
-    .todo:hover {
-        border: 1px solid #f8f8f8;
-        background-color: #feffda;
-    }
-    .todo label {
-        font-size: 1.2rem;
-        margin: 0;
-    }
-    .todo input[type="checkbox"] {
-        width: 20px !important;
-        margin-right: 1rem;
-    }
+.todo {
+  width: 100%;
+  background-color: #f3f3f3;
+  padding: 1rem 0.5rem;
+  margin: 0.5rem 0;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  border-radius: 5px;
+}
+.todo:hover {
+}
+.todo label {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.todo input[type="checkbox"] {
+  width: 20px !important;
+  margin-right: 1rem;
+}
 
-    .todo .action-btn {
-        position: absolute;
-        top: 1rem;
-        right: .5rem;
+.todo .action-btn {
+  position: absolute;
+  top: 1rem;
+  right: 0.5rem;
+}
+.todo .action-btn i {
+  margin: 0 0.5rem;
+}
 
-    }
-    .todo .action-btn i {
-        margin: 0 .5rem;
-    }
-
-    .todo .action-btn i:hover {
-        cursor: pointer;
-    }
+.todo .action-btn i:hover {
+  cursor: pointer;
+}
 </style>

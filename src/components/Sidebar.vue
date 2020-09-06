@@ -21,8 +21,8 @@
       </transition-group>
     </ul>
     <div class="info">
-      <p>You can write "#" to assign a label a todo.</p>
-      <p>Or you can write "@" to schedule a todo</p>
+      <p>You can write "#" to label a todo.</p>
+      <p>You can write "@" to schedule a todo</p>
     </div>
   </aside>
 </template>
@@ -61,10 +61,11 @@ h3 {
   text-align: center;
 }
 .info {
-  padding: 2rem;
+  text-align: center;
 }
 ul {
   margin: 0;
+  margin-bottom: 20%;
   padding: 0;
   text-align: left;
 }
@@ -81,11 +82,10 @@ li {
   list-style: none;
   padding: 1rem;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 
-li:hover,
-.active {
-  cursor: pointer;
+li.active {
   background: rgb(51, 51, 51);
 }
 

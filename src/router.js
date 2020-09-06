@@ -5,8 +5,9 @@ import Home from "./views/Home.vue";
 Vue.use(Router);
 
 const routes = [
-  { path: "/", component: Home },
+  { path: "", redirect: "/label/Inbox" },
   { path: "/label/:label", component: Home },
+  { path: "**", redirect: "/label/Inbox" },
 ];
 
 export default new Router({

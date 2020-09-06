@@ -27,15 +27,16 @@ export default {
     todos() {
       const todos = this.$store.state.todos;
       const label = this.$route.params.label;
+      console.log("qui");
       if (this.verifyLabel(label)) {
         return todos.filter((t) => t.label === label);
       }
-      return null;
+      return todos.filter((t) => t.label === "Inbox");
     },
   },
   methods: {
     verifyLabel(label) {
-      if (!label || !this.labels.includes(label)) {
+      if (!this.labels.includes(label)) {
         this.$router.push("/label/Inbox");
         return false;
       }
